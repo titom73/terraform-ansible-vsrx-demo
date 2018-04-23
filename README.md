@@ -91,8 +91,8 @@ Finally, local modules used in this demo are stored under `modules` folder.
 Some variables files are defined at different stack level for different visibility:
 - Global variables: [`variables.global/vars.global.tf`](variables.global/vars.global.tf) list all variables share among all potential projects.
 - Project variables: [`project_name/vars.stack.tf`](devops.days/vars.stack.tf) centralized all variables related to the project such as `CIDR`, `AMI`, ...
-- Region variables: [`project_name/region/vars.region.tf`](devops.days/eu-west-2/vars.region.tf) contains variables related to a specific region
-- Local variables: [`project_name/region/stack`](devops.days/dev/eu-west-2/stack01/vars.local.tf) where local variables are configured.
+- Region variables: [`project_name/environment/region/vars.region.tf`](devops.days/dev/eu-west-2/vars.region.tf) contains variables related to a specific region
+- Local variables: [`project_name/environment/region/stack`](devops.days/dev/eu-west-2/stack01/vars.local.tf) where local variables are configured.
 
 To load all these variables during `terraform` execution, symbolic links have been created like this: 
 
