@@ -92,7 +92,7 @@ Some variables files are defined at different stack level for different visibili
 - Global variables: [`variables.global/vars.global.tf`](variables.global/vars.global.tf) list all variables share among all potential projects.
 - Project variables: [`project_name/vars.stack.tf`](devops.days/vars.stack.tf) centralized all variables related to the project such as `CIDR`, `AMI`, ...
 - Region variables: [`project_name/region/vars.region.tf`](devops.days/eu-west-2/vars.region.tf) contains variables related to a specific region
-- Local variables: [`project_name/region/stack`](devops.days/eu-west-2/stack01/vars.local.tf) where local variables are configured.
+- Local variables: [`project_name/region/stack`](devops.days/dev/eu-west-2/stack01/vars.local.tf) where local variables are configured.
 
 To load all these variables during `terraform` execution, symbolic links have been created like this: 
 
@@ -103,9 +103,9 @@ ln -s ../../../var_file.tf vars.file.tf
 In the stack folder, you have different files containing dedicated scope:
 
 - [`main.tf`](devops.days/dev/eu-west-2/stack01/main.tf): file with module usage and jdevops declaration
-- [`networks.tf`](devops.days/eu-west-2/stack01/networks.tf): configuration of all the network part
-- [`security.tf`](devops.days/eu-west-2/stack01/security.tf): SG configuration
-- [`vsrx1.tf`](devops.days/eu-west-2/stack01/vsrx1.tf) and [`vsrx2.tf`](devops.days/eu-west-2/stack01/vsrx2.tf): VSRX configuration
+- [`networks.tf`](devops.days/dev/eu-west-2/stack01/networks.tf): configuration of all the network part
+- [`security.tf`](devops.days/dev/eu-west-2/stack01/security.tf): SG configuration
+- [`vsrx1.tf`](devops.days/dev/eu-west-2/stack01/vsrx1.tf) and [`vsrx2.tf`](devops.days/dev/eu-west-2/stack01/vsrx2.tf): VSRX configuration
 
 ## Configuration
 
