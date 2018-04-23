@@ -1,0 +1,5 @@
+.terraform
+*/.terraform/*
+*.pem
+*.terraform*
+terraform.tfstate*

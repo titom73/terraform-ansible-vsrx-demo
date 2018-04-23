@@ -1,0 +1,26 @@
+---
+- name: Connect to vSRXs
+  hosts: tag_Os_junos
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: enable netconf service on port 830
+      junos_netconf:
+      listens_on: 830
+      state: present
+
+- name: Display version running (w/netconf)
+  hosts: tag_Os_junos
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Get version
+      junos_command:
+        commands: show version
+        provider: "{{ credential }}"
+        display: text
+      register: response
+      
+    - name: Display version
+      debug:
+        var: response
