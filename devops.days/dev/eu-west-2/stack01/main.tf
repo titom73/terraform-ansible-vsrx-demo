@@ -14,7 +14,7 @@ module "user_vpc" {
 ### Devops Instance with 1 network Interface:
 #      - Interface 1: eth0 --> Public IP acting as management network as well.
 resource "aws_instance" "jdevops" {
-  ami           = "${lookup(var.AmiDevopsJuniper, var.region)}"
+  ami           = "${data.aws_ami.amiUbuntu.id}"
   instance_type = "${lookup(var.InstanceSize, var.branch)}"
   key_name = "${aws_key_pair.terraform-provision.key_name}"
   associate_public_ip_address = "true"

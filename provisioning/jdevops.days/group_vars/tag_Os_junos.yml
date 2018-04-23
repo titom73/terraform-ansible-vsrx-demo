@@ -10,5 +10,4 @@
     host: "{{ ansible_host }}"
     port: "830"
     username: "{{ansible_ssh_user}}"
-    # password: "Embe1mpls"
     ssh_keyfile: "{{private_key_file}}"

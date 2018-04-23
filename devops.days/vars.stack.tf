@@ -1,6 +1,6 @@
 variable "stack" {
   type = "string"
-  default = "jdevops-day"
+  default = "jdevops.day"
 }
 
 variable "vpc_fullcidr" {
@@ -33,21 +33,10 @@ variable "InstanceSize" {
   type = "map"
   default = {
     dev     = "t2.micro"
-    staging = "t2.micro"
-    prod    = "t2.micro"
+    staging = "t2.large"
+    prod    = "t2.xlarge"
   }
-  description = "Size of instance to use per context"
-}
-
-# Dict of AMI to use on a per region basis
-variable "AmiDevopsCentos" {
-  type = "map"
-  default = {
-    us-east-1 = "ami-4bf3d731"
-    us-east-2 = "ami-e1496384"
-    eu-west-2 = "ami-ee6a718a"
-  }
-  description = "AMI to deploy a Juniper Devops server"
+  description = "Size of instance to use per environment"
 }
 
 # Dict of instance sizes to use according the stack's branch
@@ -58,7 +47,7 @@ variable "VsrxInstanceSize" {
     staging = "m4.xlarge"
     prod    = "m4.xlarge"
   }
-  description = "Size of VSRX instance to use per context"
+  description = "Size of VSRX instance to use per environment"
 }
 
 # Dict of AMI to start VSRX BYOL
