@@ -24,6 +24,54 @@ But before that, it is important to go through the configuration steps
 
 Ansible playbook is called by a call to `local-exec`. Because VSRX take time to boot, it is required to put a sleep timer of 10 minutes before starting ansible stuff.
 
+### Detailled Topology description
+
+Tpology comes with following elements:
+
+- 1 VPC with a full CIDR set to `10.0.0.0/16`.
+- 1 Management network set to 10.0.255.0/24. Public IPs are allocated to private resources part of this subnet.
+- 1 Untrust subnet: `10.0.10.0/24`.
+- 2 Trust networks: `10.0.{1,2}.0/24`.
+- 1 RT with management and untrust subnets attached to it.
+- 1 Internet Gateway.
+- 1 NAT Gateway.
+- 1 Ubuntu 16.04 LTS Instance.
+- 2 VSRX instances.
+- 1 SG attached to all management interfaces.
+
+__Ubuntu instance:__
+- Management IP: `10.0.255.10`
+- Login information: 
+	- username: `ubuntu`
+	- password: NO
+	- Key file: files part of [`provisionning/`](provisionning/)
+
+__VSRX #1:__
+- Management IP (fxp0): `10.0.255.21`
+	- 1 `EIP` configured and attached to this `network_interface` 
+- Login information: 
+	- username: `root`
+	- password: NO
+	- Key file: files part of [`provisionning/`](provisionning/)
+- Untrust network: `ge-0/0/0` (Not configured)
+- Trust network: `ge-0/0/1` (Not configured)
+
+__VSRX #2:__
+- Management IP (fxp0): `10.0.255.22`
+	- 1 `EIP` configured and attached to this `network_interface` 
+- Login information: 
+	- username: `root`
+	- password: NO
+	- Key file: files part of [`provisionning/`](provisionning/)
+- Untrust network: `ge-0/0/0` (Not configured)
+- Trust network: `ge-0/0/1` (Not configured)
+
+__Security Group (devops.days.jnpr.access.any)__
+- Allow JUNIPER VPN IPs and VPC Full CIDR for `22/tcp`
+- Allow JUNIPER VPN IPs and VPC Full CIDR for `830/tcp`
+- Allow JUNIPER VPN IPs and VPC Full CIDR for `ICMP`
+
+
 ## Requirements
 
 To run this demo, you must complete these requirements:
