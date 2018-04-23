@@ -1,5 +1,21 @@
 # Terraform and Ansible integration to build AWS topology
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Introduction](#introduction)
+  - [Detailled Topology description](#detailled-topology-description)
+- [Requirements](#requirements)
+- [Repository structure](#repository-structure)
+- [Configuration](#configuration)
+  - [AWS Configuration (Required)](#aws-configuration-required)
+  - [Configure SSH Access (Optional)](#configure-ssh-access-optional)
+  - [Update Network information (Optional)](#update-network-information-optional)
+- [Ansible provisionning](#ansible-provisionning)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Introduction
 
 This repository provides a `terraform` stack to build a short devops demo running an Ubuntu server and 2 VSRXs in a single VPC.
