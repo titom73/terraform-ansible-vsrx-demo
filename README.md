@@ -29,7 +29,7 @@ Ansible playbook is called by a call to `local-exec`. Because VSRX take time to 
 To run this demo, you must complete these requirements:
 
 - [`terraform`](https://www.terraform.io): At least version `0.11.4`
-- ['ansible'](https://www.ansible.com): At least version `2.5` since we are using `network_cli` connection
+- [`ansible`](https://www.ansible.com): At least version `2.5` since we are using `network_cli` connection
 - Python libraries: `botocore`, `boto3`, `junos-eznc`, `awscli`
 
 If `python-pip` is part of your system, you can install ansible and python modules with the following command:
@@ -102,7 +102,7 @@ ln -s ../../../var_file.tf vars.file.tf
 
 In the stack folder, you have different files containing dedicated scope:
 
-- [`main.tf`](devops.days/eu-west-2/stack01/main.tf): file with module usage and jdevops declaration
+- [`main.tf`](devops.days/dev/eu-west-2/stack01/main.tf): file with module usage and jdevops declaration
 - [`networks.tf`](devops.days/eu-west-2/stack01/networks.tf): configuration of all the network part
 - [`security.tf`](devops.days/eu-west-2/stack01/security.tf): SG configuration
 - [`vsrx1.tf`](devops.days/eu-west-2/stack01/vsrx1.tf) and [`vsrx2.tf`](devops.days/eu-west-2/stack01/vsrx2.tf): VSRX configuration
