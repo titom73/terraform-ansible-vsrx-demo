@@ -1,26 +1,55 @@
 ---
-- name: Connect to vSRXs
-  hosts: tag_Os_junos
-  connection: network_cli
-  gather_facts: no
-  tasks:
-    - name: enable netconf service on port 830
-      junos_netconf:
-      listens_on: 830
-      state: present
 
-- name: Display version running (w/netconf)
-  hosts: tag_Os_junos
+- name: Provision vsrx01
+  hosts: tag_Name_vsrx1_jdevops_day
   connection: local
   gather_facts: no
+  roles:
+    - Juniper.junos
+  vars:
+    # For MacOS https://github.com/Juniper/ansible-junos-stdlib/issues/245
+    ansible_python_interpreter: /usr/local/bin/python
   tasks:
-    - name: Get version
-      junos_command:
-        commands: show version
-        provider: "{{ credential }}"
-        display: text
-      register: response
-      
-    - name: Display version
-      debug:
-        var: response
+    - name: Push configuration lines
+      juniper_junos_config:
+        load: 'merge'
+        lines:
+          - 'set system host-name vsrx01'
+          - 'set system root-authentication encrypted-password "$5$wX3N86Jg$DcrZl98XZo3c3UPtgve/KIqAh4AHDv/e5YVKoFR2SA0"'
+          - 'set security zones security-zone untrust host-inbound-traffic system-services ping'
+          - 'set security zones security-zone untrust interfaces ge-0/0/0.0'
+          - 'set interfaces ge-0/0/0 unit 0 family inet address 10.0.10.21/24'
+          - 'set routing-options generate route 1.1.1.0/24 active'
+          - 'set routing-options static route 1.1.1.0/24 active next-hop 10.0.0.1'
+          - 'set policy-options policy-statement bgp-export term 1 from protocol static'
+          - 'set policy-options policy-statement bgp-export term 1 then accept'
+          - 'set protocols bgp group ebgp export bgp-export'
+        comment: 'update config with ansible'
+        format: 'set'
+
+- name: Provision vsrx02
+  hosts: tag_Name_vsrx2_jdevops_day
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+  vars:
+    # For MacOS https://github.com/Juniper/ansible-junos-stdlib/issues/245
+    ansible_python_interpreter: /usr/local/bin/python
+  tasks:
+    - name: Push configuration lines
+      juniper_junos_config:
+        load: 'merge'
+        lines:
+          - 'set system host-name vsrx02'
+          - 'set system root-authentication encrypted-password "$5$wX3N86Jg$DcrZl98XZo3c3UPtgve/KIqAh4AHDv/e5YVKoFR2SA0"'
+          - 'set security zones security-zone untrust host-inbound-traffic system-services ping'
+          - 'set security zones security-zone untrust interfaces ge-0/0/0.0'
+          - 'set interfaces ge-0/0/0 unit 0 family inet address 10.0.10.22/24'
+          - 'set routing-options generate route 2.2.2.0/24 active'
+          - 'set routing-options static route 2.2.2.0/24 active next-hop 10.0.0.1'
+          - 'set policy-options policy-statement bgp-export term 1 from protocol static'
+          - 'set policy-options policy-statement bgp-export term 1 then accept'
+          - 'set protocols bgp group ebgp export bgp-export'
+        comment: 'update config with ansible'
+        format: 'set'
