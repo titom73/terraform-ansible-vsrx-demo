@@ -279,33 +279,30 @@ All variables related to group or hosts are put on `group_vars` and `host_vars` 
 
 > You have to update path to your local version in [the file](provisionning/jdevops.days/group_vars/tag_Os_junos.yml): <PATH_TO_YOUR_LOCAL_COPY>
 
-Based on that, we have the following simple playbook to activate netconf and then get version by using a netconf call:
+Based on that, we have the following [simple playbook](provisionning/jdevops.days/pb.vsrx.configure.yml) to push configuration by using [`Juniper.junos`](https://github.com/Juniper/ansible-junos-stdlib) by using a netconf call:
 
 ```yaml
 ---
-- name: Connect to vSRXs
-  hosts: tag_Os_junos
-  connection: network_cli
-  gather_facts: no
-  tasks:
-    - name: enable netconf service on port 830
-      junos_netconf:
-      listens_on: 830
-      state: present
-
-- name: Display version running (w/netconf)
-  hosts: tag_Os_junos
+- name: Provision vsrx01
+  hosts: tag_Name_vsrx1_jdevops_day
   connection: local
   gather_facts: no
+  roles:
+    - Juniper.junos
+  vars:
+    # Only for MacOS https://github.com/Juniper/ansible-junos-stdlib/issues/245
+    ansible_python_interpreter: /usr/local/bin/python
   tasks:
-    - name: Get version
-      junos_command:
-        commands: show version
-        provider: "{{ credential }}"
-        display: text
-      register: response
-      
-    - name: Display version
-      debug:
-        var: response
+    - name: Push configuration lines
+      juniper_junos_config:
+        load: 'merge'
+        lines:
+          - 'set system host-name vsrx01'
+[...]
+```
+
+Because provisionner is executed on any new VSRX, we are limiting execution to host IP:
+
+```shell
+ansible-playbook ../../../../provisioning/jdevops.days/pb.vsrx.configure.yml -i ../../../../provisioning/jdevops.days/inventory --limit ${aws_instance.vsrx2.public_ip}
 ```
