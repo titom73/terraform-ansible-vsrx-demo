@@ -279,7 +279,7 @@ All variables related to group or hosts are put on `group_vars` and `host_vars` 
 
 > You have to update path to your local version in [the file](provisionning/jdevops.days/group_vars/tag_Os_junos.yml): <PATH_TO_YOUR_LOCAL_COPY>
 
-Based on that, we have the following [simple playbook](provisionning/jdevops.days/pb.vsrx.configure.yml) to push configuration by using [`Juniper.junos`](https://github.com/Juniper/ansible-junos-stdlib) by using a netconf call:
+Based on that, we have the following [simple playbook](provisionning/jdevops.days/pb.vsrx.configure.yml) to push configuration by using [`Juniper.junos`](https://github.com/Juniper/ansible-junos-stdlib) in version 2.0.2 by using a netconf call:
 
 ```yaml
 ---
