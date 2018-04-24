@@ -62,9 +62,15 @@ resource "aws_security_group" "jnpr_access" {
   description = "Allow all inbound traffic from Juniper networks"
   vpc_id      = "${aws_vpc.vpc_project.id}"
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["66.129.239.0/27", "66.129.239.64/27", "116.197.184.0/27", "116.197.184.64/27", "193.110.55.0/24", "${var.fullcidr}"]
+  }
+  ingress {
+    from_port   = 830
+    to_port     = 830
+    protocol    = "tcp"
     cidr_blocks = ["66.129.239.0/27", "66.129.239.64/27", "116.197.184.0/27", "116.197.184.64/27", "193.110.55.0/24", "${var.fullcidr}"]
   }
   ingress {
