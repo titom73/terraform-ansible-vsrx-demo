@@ -95,11 +95,17 @@ To run this demo, you must complete these requirements:
 - [`terraform`](https://www.terraform.io): At least version `0.11.4`
 - [`ansible`](https://www.ansible.com): At least version `2.5` since we are using `network_cli` connection
 - Python libraries: `botocore`, `boto3`, `junos-eznc`, `awscli`
+- [`Juniper.junos`] role for ansible
 
 If `python-pip` is part of your system, you can install ansible and python modules with the following command:
 
 ```shell
 pip install --upgrade -r requirements.txt
+```
+To install ansible requirements, just use:
+
+```shell
+ansible-galaxy install -r requirements.ansible.txt
 ```
 
 ## Repository structure
